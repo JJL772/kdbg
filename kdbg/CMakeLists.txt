@@ -80,6 +80,10 @@ set(kdbg_UI
 
 ki18n_wrap_ui(kdbg_SRCS ${kdbg_UI})
 
+if(UNIX)
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-suggest-override")
+endif(UNIX)
+
 file(GLOB ICONS_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/pics/*-apps-kdbg.png")
 ecm_add_app_icon(kdbg_SRCS ICONS ${ICONS_SRCS})
 add_executable(kdbg ${kdbg_SRCS})
