@@ -10,6 +10,8 @@
 #include <QDropEvent>
 #include <QKeyEvent>
 #include <QMimeData>
+#include <QMenu>
+#include <QSignalMapper>
 
 WatchWindow::WatchWindow(QWidget* parent) :
 	QWidget(parent),
@@ -33,6 +35,10 @@ WatchWindow::WatchWindow(QWidget* parent) :
     m_watchH.addWidget(&m_watchAdd);
     m_watchH.addWidget(&m_watchDelete);
 
+	this->setContextMenuPolicy(Qt::CustomContextMenu);
+	m_watchVariables.setContextMenuPolicy(Qt::CustomContextMenu);
+
+	connect(&m_watchVariables, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(onCustomContextMenu(const QPoint&)));
     connect(&m_watchEdit, SIGNAL(returnPressed()), SIGNAL(addWatch()));
     connect(&m_watchAdd, SIGNAL(clicked()), SIGNAL(addWatch()));
     connect(&m_watchDelete, SIGNAL(clicked()), SIGNAL(deleteWatch()));
@@ -82,6 +88,32 @@ void WatchWindow::dropEvent(QDropEvent* event)
     event->acceptProposedAction();
 }
 
+void WatchWindow::keyPressEvent(QKeyEvent* ev)
+{
+	if(ev->key() == Qt::Key_Escape && m_watchVariables.selectedItem())
+		m_watchVariables.selectedItem()->setSelected(false);
+}
+
+void WatchWindow::onCustomContextMenu(const QPoint& pt)
+{
+	QTreeWidgetItem* item = m_watchVariables.itemAt(pt);
+	if(item)
+	{
+		item->setSelected(true);
+		QMenu menu(tr("Action"), this);
+		QAction action1("Delete watch", this);
+		connect(&action1, &QAction::triggered, this, [this]{
+			deleteWatch();
+		});	
+		QAction action2("Copy watch", this);
+		connect(&action2, &QAction::triggered, this, [this]{
+			
+		});
+		menu.addAction(&action1);
+		menu.addAction(&action2);
+		menu.exec(mapToGlobal(pt));
+	}
+}
 
 // place the text of the hightlighted watch expr in the edit field
 void WatchWindow::slotWatchHighlighted()

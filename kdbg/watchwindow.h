@@ -35,6 +35,7 @@ protected:
     virtual bool eventFilter(QObject* ob, QEvent* ev);
     virtual void dragEnterEvent(QDragEnterEvent* event);
     virtual void dropEvent(QDropEvent* event);
+	virtual void keyPressEvent(QKeyEvent* event);
 
 signals:
     void addWatch();
@@ -43,6 +44,7 @@ signals:
 
 protected slots:
     void slotWatchHighlighted();
+	virtual void onCustomContextMenu(const QPoint& pt);
 };
 
 #endif // WATCHWINDOW_H
