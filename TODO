@@ -41,4 +41,34 @@
 
 35. Allow to copy variable values to the clipboard.
 
-36.
+---- Jeremy L. On 9-25-2019 ----
+
+36. Fix context menu displacement
+
+37. Add context menu to set special properties of a watch (e.g. display in hex or as an array with x length)
+
+38. Automatically load source files into a source tree window for easy navigation
+
+39. Add step by line option (instead of step over or some crap)
+
+40. Option to select colour scheme of the UI (not code windows)
+
+41. Add option to select colours of the code windows (similar to kdev or kate)
+
+42. Integrate output into the UI (instead of a separate terminal window)
+
+43. Add option to load library or other file into the program
+
+44. Add option to search memory for a sequence of bytes
+
+45. In watch window, mark watches that are not in scope currently
+
+46. Although the goals of this project dont like it...Add command line interface that allows for commands to be executed
+
+47. Add menu options to do some gdb operations like force return from current caller
+
+48. Python plugin scripting
+
+49. Option to set register value in context menu
+
+50. Proper memory browser
